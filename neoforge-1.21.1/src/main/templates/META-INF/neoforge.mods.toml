@@ -1,0 +1,32 @@
+modLoader="javafml"
+loaderVersion="${loader_version_range}"
+license="${mod_license}"
+
+[[mods]]
+modId="${mod_id}"
+version="${mod_version}"
+displayName="${mod_name}"
+logoFile="logo.png"
+authors="bene2212, thesapling, akorutant"
+credits="Based on the MIT-licensed Hold My Items Reforged NeoForge port by bene2212 and the original Hold My Items by thesapling."
+description='''
+Client-side first-person held-item animations with compatibility for NeoForge common tool tags,
+modded tools, Silent Gear, and Create Wrench.
+'''
+
+[[mixins]]
+config="holdmyitemsnf.mixins.json"
+
+[[dependencies.${mod_id}]]
+modId="neoforge"
+type="required"
+versionRange="[${neo_version},)"
+ordering="NONE"
+side="CLIENT"
+
+[[dependencies.${mod_id}]]
+modId="minecraft"
+type="required"
+versionRange="${minecraft_version_range}"
+ordering="NONE"
+side="CLIENT"

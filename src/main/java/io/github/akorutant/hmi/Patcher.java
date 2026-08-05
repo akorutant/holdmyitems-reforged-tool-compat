@@ -28,7 +28,6 @@ public final class Patcher {
             "de/bene2212/holdmyitemsnf/util/HoldMyItemsTags.class";
     private static final String RENDERER_CLASS =
             "de/bene2212/holdmyitemsnf/mixin/HeldItemsMixin.class";
-
     private Patcher() {}
 
     public static void main(String[] args) throws Exception {
@@ -60,6 +59,7 @@ public final class Patcher {
                     patchedEntries.add(TAGS_CLASS);
                 } else if (RENDERER_CLASS.equals(entry.getName())) {
                     data = patchToolRecognition(data);
+                    data = patchCreateWrenchPose(data);
                     patchedEntries.add(RENDERER_CLASS);
                 }
 
@@ -71,6 +71,7 @@ public final class Patcher {
                 zipOut.write(data);
                 zipOut.closeEntry();
             }
+
         } catch (Exception error) {
             Files.deleteIfExists(temporary);
             throw error;
@@ -133,6 +134,26 @@ public final class Patcher {
         }
         if (changed != 3) {
             throw new IllegalStateException("Expected three tool enchantability checks, changed " + changed);
+        }
+        return writeClass(classNode);
+    }
+
+    private static byte[] patchCreateWrenchPose(byte[] input) {
+        ClassNode classNode = readClass(input);
+        int changed = 0;
+        for (MethodNode method : classNode.methods) {
+            if (!"onRenderArmWithItem".equals(method.name)) continue;
+            for (AbstractInsnNode instruction = method.instructions.getFirst();
+                 instruction != null;
+                 instruction = instruction.getNext()) {
+                if (!(instruction instanceof LdcInsnNode text)
+                        || !"wrench".equals(text.cst)) continue;
+                text.cst = "wrench_hmi_default_pose";
+                changed++;
+            }
+        }
+        if (changed != 1) {
+            throw new IllegalStateException("Expected one Create wrench special-case, changed " + changed);
         }
         return writeClass(classNode);
     }
