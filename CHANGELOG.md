@@ -1,5 +1,12 @@
 # Changelog
 
+## Fabric port - 2026-09-13
+
+- Added a client-side Fabric 1.21.1 build using official Mojang mappings.
+- Ported key registration, render lifecycle timing, model initialization, and the built-in 3D bucket resource pack to Fabric API.
+- Added a JSON client config at `config/holdmyitemsnf-fabric.json` with the same defaults as the NeoForge config.
+- Added Fabric common tags and loader-specific fluid compatibility while sharing the main renderer between both builds.
+
 ## 2.2.0 - 2026-08-05
 
 - Rebuilt the mod as a standard NeoForge 1.21.1 source project.

@@ -1,0 +1,82 @@
+plugins {
+    id 'fabric-loom' version '1.12.5'
+    id 'maven-publish'
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+    archivesName = project.archives_base_name
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings loom.officialMojangMappings()
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+    compileOnly 'com.google.code.findbugs:jsr305:3.0.2'
+}
+
+def sharedJava = fileTree('../neoforge-1.21.1/src/main/java') {
+    exclude 'de/bene2212/holdmyitemsnf/Holdmyitemsnf.java'
+    exclude 'de/bene2212/holdmyitemsnf/config/**'
+    exclude 'de/bene2212/holdmyitemsnf/event/**'
+    exclude 'de/bene2212/holdmyitemsnf/mixin/LivingEntityMixin.java'
+    exclude 'de/bene2212/holdmyitemsnf/util/HoldMyItemsTags.java'
+    exclude 'de/bene2212/holdmyitemsnf/util/PlatformHooks.java'
+}
+
+tasks.named('compileJava', JavaCompile) {
+    source sharedJava
+}
+
+processResources {
+    inputs.property 'version', project.version
+    filesMatching('fabric.mod.json') {
+        expand version: project.version
+    }
+
+    from(fileTree('../neoforge-1.21.1/src/main/resources')) {
+        exclude 'META-INF/**'
+        exclude 'data/forge/**'
+        exclude 'holdmyitemsnf.mixins.json'
+        exclude 'test_nested_resource_pack/**'
+    }
+    from('../neoforge-1.21.1/src/main/resources/test_nested_resource_pack') {
+        into 'resourcepacks/hmi_3d_buckets'
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = 21
+    options.encoding = 'UTF-8'
+}
+
+java {
+    withSourcesJar()
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+tasks.named('sourcesJar') {
+    from sharedJava
+}
+
+jar {
+    from('../LICENSE') {
+        rename { "${it}_${project.base.archivesName.get()}" }
+    }
+}
+
+publishing {
+    publications {
+        create('mavenJava', MavenPublication) {
+            from components.java
+        }
+    }
+}

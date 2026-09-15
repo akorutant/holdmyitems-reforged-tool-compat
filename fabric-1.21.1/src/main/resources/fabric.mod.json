@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "holdmyitemsnf",
+  "version": "${version}",
+  "name": "Hold My Items Reforged Tool Compatibility (Fabric)",
+  "description": "Fabric port of Hold My Items Reforged with compatibility for modded tools.",
+  "authors": [
+    "Bene2212_",
+    "akorutant"
+  ],
+  "contact": {
+    "sources": "https://github.com/akorutant/holdmyitems-reforged-tool-compat",
+    "issues": "https://github.com/akorutant/holdmyitems-reforged-tool-compat/issues"
+  },
+  "license": "MIT",
+  "icon": "logo.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "de.bene2212.holdmyitemsnf.Holdmyitemsnf"
+    ]
+  },
+  "mixins": [
+    "holdmyitemsnf.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.10",
+    "minecraft": "~1.21.1",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}

@@ -2,10 +2,11 @@
 
 [![Minecraft 1.21.1](https://img.shields.io/badge/Minecraft-1.21.1-62b47a)](https://www.minecraft.net/)
 [![NeoForge](https://img.shields.io/badge/NeoForge-21.1-orange)](https://neoforged.net/)
+[![Fabric](https://img.shields.io/badge/Fabric-1.21.1-d8c49a)](https://fabricmc.net/)
 [![Hold My Items Reforged](https://img.shields.io/badge/Hold_My_Items-Reforged-blue)](https://www.curseforge.com/minecraft/mc-mods/hold-my-items-reforged)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-Source-based compatibility release of **Hold My Items - Reforged for Minecraft 1.21.1 NeoForge**.
+Source-based compatibility release of **Hold My Items - Reforged for Minecraft 1.21.1**, available for NeoForge and Fabric.
 
 **Download on [CurseForge](https://www.curseforge.com/minecraft/mc-mods/silent-gear-tool-compatibility)** | [Source code and GitHub releases](https://github.com/akorutant/holdmyitems-reforged-tool-compat)
 
@@ -41,7 +42,7 @@ Do not install this release together with the original Hold My Items Reforged JA
 - the outdated special Create Wrench transform was removed, so its handle stays anchored in the character's hand;
 - the inspection key has English and Russian names and uses `J` by default.
 
-The source-based NeoForge project is in [`neoforge-1.21.1`](neoforge-1.21.1).
+The loader projects are in [`neoforge-1.21.1`](neoforge-1.21.1) and [`fabric-1.21.1`](fabric-1.21.1). The Fabric build requires Fabric API and uses `config/holdmyitemsnf-fabric.json` for client settings.
 
 ## Legacy patcher
 
@@ -84,6 +85,15 @@ cd neoforge-1.21.1
 
 The mod is written to `neoforge-1.21.1/build/libs/holdmyitemsnf-2.2.0-compat.jar`.
 
+Build the Fabric version with Java 21:
+
+```shell
+cd fabric-1.21.1
+./gradlew build
+```
+
+The Fabric mod is written to `fabric-1.21.1/build/libs/holdmyitems-fabric-1.21.1-2.2.0-compat-fabric.jar`.
+
 The legacy patcher can still be built with `mvn package` from the repository root.
 
 ## Compatibility
@@ -92,6 +102,7 @@ Validated with:
 
 - Minecraft 1.21.1
 - NeoForge 21.1.243
+- Fabric Loader 0.19.5 and Fabric API 0.116.17+1.21.1
 - Silent Gear 4.2.1.1
 - Create 6.0.10
 

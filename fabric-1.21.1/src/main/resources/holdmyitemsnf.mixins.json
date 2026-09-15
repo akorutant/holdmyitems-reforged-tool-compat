@@ -3,16 +3,13 @@
   "minVersion": "0.8",
   "package": "de.bene2212.holdmyitemsnf.mixin",
   "compatibilityLevel": "JAVA_21",
-  "refmap": "holdmyitemsnf.refmap.json",
-  "mixins": [
+  "client": [
     "AxolotlModelAccessor",
     "BellBlockModelAccessor",
     "BlockRenderManagerMixin",
     "HeldItemsMixin",
     "ItemRendererAccessor",
     "LivingEntityMixin"
-  ],
-  "client": [
   ],
   "injectors": {
     "defaultRequire": 1

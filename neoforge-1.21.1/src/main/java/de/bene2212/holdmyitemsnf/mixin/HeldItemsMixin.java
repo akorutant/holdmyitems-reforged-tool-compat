@@ -103,7 +103,9 @@ import de.bene2212.holdmyitemsnf.Holdmyitemsnf;
 import de.bene2212.holdmyitemsnf.config.HoldMyItemsClientConfig;
 import de.bene2212.holdmyitemsnf.interfaces.AlternateBlockRenderer;
 import de.bene2212.holdmyitemsnf.mixin.AxolotlModelAccessor;
+import de.bene2212.holdmyitemsnf.mixin.ItemRendererAccessor;
 import de.bene2212.holdmyitemsnf.util.HoldMyItemsTags;
+import de.bene2212.holdmyitemsnf.util.PlatformHooks;
 import de.bene2212.holdmyitemsnf.util.RenderHelper;
 import de.bene2212.holdmyitemsnf.util.SkullHelper;
 import de.bene2212.holdmyitemsnf.util.ToolCompatibility;
@@ -695,7 +697,7 @@ public abstract class HeldItemsMixin {
                                                                         if (!(!p.onClimbable() || p.isCrouching() || !((Boolean)HoldMyItemsClientConfig.ENABLE_CLIMB_AND_CRAWL.get()).booleanValue() || p.onGround() || stack.is(Items.LANTERN) || stack.is(Items.SOUL_LANTERN) || p.isUsingItem())) {
                                                                             poseStack.translate(0.0, 0.1, -0.2);
                                                                         }
-                                                                        if ((p.isInFluidType() || p.isInPowderSnow) && !p.isSwimming() && !p.isUnderWater()) {
+                                                                        if ((PlatformHooks.isInFluid(p) || p.isInPowderSnow) && !p.isSwimming() && !p.isUnderWater()) {
                                                                             this.inWaterCounter = (float)((double)this.inWaterCounter + 0.1 * tt);
                                                                             if (this.inWaterCounter >= 1.0f) {
                                                                                 this.inWaterCounter = 1.0f;
@@ -1430,7 +1432,7 @@ public abstract class HeldItemsMixin {
                                                     }
                                                     poseStack.mulPose(Axis.YP.rotationDegrees((float)(-90 * l)));
                                                 }
-                                                BlockEntityWithoutLevelRenderer renderer = this.itemRenderer.getBlockEntityRenderer();
+                                                BlockEntityWithoutLevelRenderer renderer = ((ItemRendererAccessor)this.itemRenderer).holdmyitemsnf$getBlockEntityRenderer();
                                                 renderer.renderByItem(stack, bl2 ? ItemDisplayContext.FIRST_PERSON_RIGHT_HAND : ItemDisplayContext.FIRST_PERSON_LEFT_HAND, poseStack, buffer, light, OverlayTexture.NO_OVERLAY);
                                                 ci.cancel();
                                             }
